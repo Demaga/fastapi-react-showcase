@@ -1,0 +1,53 @@
+html {
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5, p, span, a, li {
+    font-family: 'Roboto Mono', monospace;
+}
+
+body {
+    margin: 0 auto;
+    padding: 0px;
+    width: 90%;
+    max-width: 1400px;
+    padding-bottom: 60px;
+}
+
+p {
+    font-size: 18px;
+}
+
+#sidebar {
+    display: block;
+    float: left;
+    width: 20%;
+}
+
+#sidebar ul {
+    margin-top:  15px;
+}
+
+#sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+#sidebar ul li a:hover {
+    color: brown;
+    transition: 0.2s;
+}
+
+#main {
+    display: block;
+    float: right;
+    padding-left: 2%;
+    border-left: 3px solid grey;
+    min-height: 100vh;
+    width: 75%;
+}
+
+#main h1 {
+    margin-block-start: 15px;
+}
