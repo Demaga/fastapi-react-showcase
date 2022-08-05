@@ -3,4 +3,8 @@
 {% block main %}
     <h1>Who said that?</h1>
     <p>Take part in an amusing game. Guess who does the quote below belongs to!</p>
+
+    <div id="who_said_that"></div>
+
+    <script src="{{ url_for('static', path='/components/who_said_that.js') }}" type="text/babel"></script>
 {% endblock %}

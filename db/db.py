@@ -10,10 +10,11 @@ load_dotenv("../.env")
 DB_USERNAME = os.getenv("DB_USERNAME")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_SERVER = os.getenv("DB_SERVER")
+DB_NAME = os.getenv("DB_NAME")
 
 # SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
 SQLALCHEMY_DATABASE_URL = (
-    f"postgresql://{{DB_USERNAME}}:{{DB_PASSWORD}}@{{DB_SERVER}}/db"
+    f"postgresql://{{DB_USERNAME}}:{{DB_PASSWORD}}@{{DB_SERVER}}/{{DB_NAME}}"
 )
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
