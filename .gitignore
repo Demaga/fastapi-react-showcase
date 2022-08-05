@@ -153,5 +153,8 @@ cython_debug/
 #.idea/
 
 
+#alembic config
+*.ini
+
 #parse results
 *.json
