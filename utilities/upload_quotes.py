@@ -1,10 +1,19 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv, find_dotenv
 import os
-
+import json
 from sql.models import Tag, Quote, Author
+import random
+
+
+def generate_tag_color(colors):
+    color = "#" + "".join([random.choice("ABCDEF0123456789") for i in range(6)])
+    while color in colors:
+        color = "#" + "".join([random.choice("ABCDEF0123456789") for i in range(6)])
+    return color
+
 
 load_dotenv(find_dotenv())
 
@@ -23,36 +32,52 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 print(SessionLocal)
 
-
 with SessionLocal() as session:
+    # the path has to be this way because the script is called from root folder
+    f = open("utilities/results.json", "r")
 
-    tag = Tag(name="White", color="#000000")
-    print(tag)
+    results = json.load(f)
 
-    author = Author(name="Blu Renolds")
-    print(author)
+    # i decided to go for 2 big requests instead of many small requests, because in postgresql it is more efficient (and memory won't be an issue for these entities)
+    all_tags = session.execute(select(Tag.name, Tag.color)).all()
+    all_tag_names = [name for name, color in all_tags]
+    all_tag_colors = [color for name, color in all_tags]
 
-    quote = Quote(text="Test quote", author=author)
-    quote.tags.append(tag)
-    print(quote)
+    all_authors = session.execute(select(Author.name)).all()
 
-    session.add(tag)
-    session.add(author)
-    session.add(quote)
-    session.commit()
+    quote_tags = []
 
-# book_author1 = BookAuthor(
-#     book_id=book1.id, author_id=author1.id, blurb="Blue wrote chapter 1"
-# )
-# book_author2 = BookAuthor(
-#     book_id=book1.id, author_id=author2.id, blurb="Chip wrote chapter 2"
-# )
-# book_author3 = BookAuthor(
-#     book_id=book2.id, author_id=author1.id, blurb="Blue wrote chapters 1-3"
-# )
-# book_author4 = BookAuthor(
-#     book_id=book2.id, author_id=author3.id, blurb="Alyssa wrote chapter 4"
-# )
+    for res in results:
+        tags = res["tags"]
+        for tag in tags:
+            if tag not in all_tag_names:
+                tag_to_upload = Tag(name=tag, color=generate_tag_color(all_tag_colors))
+                session.add(tag_to_upload)
+                quote_tags.append(tag_to_upload)
+                all_tag_names.append(tag)
+            else:
+                quote_tags.append(
+                    session.execute(select(Tag).where(Tag.name == tag)).all()[0][0]
+                )
 
-# session.add_all([book_author1, book_author2, book_author3, book_author4])
-# session.commit()
+        author = res["author"]
+        if author not in all_authors:
+            author_to_upload = Author(name=author)
+            all_authors.append(author)
+            session.add(author_to_upload)
+        else:
+            author_to_upload = session.execute(
+                select(Author).where(Author.name == author)
+            ).all()[0][0]
+
+        quote = res["quote"]
+        print(quote_tags)
+        quote_to_upload = Quote(text=quote, author=author_to_upload)
+        if quote_tags != []:
+            quote_to_upload.tags.extend(quote_tags)
+        print(quote_to_upload)
+        session.add(quote_to_upload)
+
+        session.commit()
+
+    f.close()

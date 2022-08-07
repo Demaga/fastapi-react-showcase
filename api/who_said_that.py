@@ -1,4 +1,6 @@
 from fastapi import FastAPI, Request
+from sqlalchemy.orm import Session
+from sql import models, schemas
 
 tags_metadata = [
     {
@@ -11,5 +13,5 @@ subapi = FastAPI()
 
 
 @subapi.get("/", tags=["who-said-that"])
-def read_root(request: Request):
-    return {"text": "text"}
+def get_all_quotes(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Quote).offset(skip).limit(limit).all()

@@ -12,6 +12,9 @@ class Tag(Base):
 
     quotes = relationship("Quote", secondary="quote_tag", back_populates="tags")
 
+    def __repr__(self):
+        return repr(self.name)
+
 
 class Author(Base):
     __tablename__ = "author"
@@ -33,6 +36,9 @@ class Quote(Base):
 
     author = relationship("Author", back_populates="quotes")
     tags = relationship("Tag", secondary="quote_tag", back_populates="quotes")
+
+    def __repr__(self):
+        return repr("author: " + self.author.name + "; tags: " + str(self.tags))
 
 
 quote_tag = Table(
