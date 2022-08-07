@@ -1,6 +1,16 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends
 from sqlalchemy.orm import Session
-from sql import models, schemas
+from sql import crud, models, schemas
+from sql.db import SessionLocal, engine
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 tags_metadata = [
     {
@@ -12,6 +22,7 @@ tags_metadata = [
 subapi = FastAPI()
 
 
-@subapi.get("/", tags=["who-said-that"])
-def get_all_quotes(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Quote).offset(skip).limit(limit).all()
+@subapi.get("/", tags=["who-said-that"], response_model=list[schemas.Quote])
+def get_all_quotes(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
+    quotes = crud.get_quotes(db, skip=skip, limit=limit)
+    return quotes

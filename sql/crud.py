@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
-
-from . import models, schemas
+from sql import models, schemas
 
 
 def get_quotes(db: Session, skip: int = 0, limit: int = 100):
