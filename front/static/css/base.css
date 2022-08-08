@@ -41,19 +41,25 @@ p {
 
 #main {
     display: block;
-    float: right;
+    float: left;
     padding-left: 2%;
     border-left: 3px solid grey;
     min-height: 100vh;
-    width: 75%;
+    width: 50%;
 }
 
 #main h1 {
     margin-block-start: 15px;
 }
 
+span.quote {
+    font-style: italic;
+    font-size: 24px;
+    background-color: #EED5C2;
+}
+
 div.options {
-    max-width: 200px;
+    margin-top: 15px;
 }
 
 button.author {
@@ -61,7 +67,7 @@ button.author {
     background-color: #3F84E5;
     color: white;
     padding: 15px;
-    width: 100%;
+    width: 200px;
     border-radius: 15px;
     margin-bottom: 10px;
 }
@@ -72,16 +78,29 @@ button.author:hover {
     transition: 0.2s;
 }
 
-button:disabled,
-button[disabled] {
+button:disabled {
+    pointer-events: none;
     cursor: not-allowed;
-    pointer-events: all !important;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
-button.win {
+div.win button {
     background-color: #98CE00;
+    opacity: 1;
 }
 
-button.lose {
+div.lose button {
     background-color: #D1495B;
+    opacity: 1;
+}
+
+div.option {
+    margin-bottom: 15px;
+}
+
+div.option span {
+    display: inline;
 }
