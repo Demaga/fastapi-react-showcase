@@ -20,6 +20,8 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 
 from sql.db import Base
+
+# i know this is ridiculous, but alembic autogeneration doesn't work without this import
 from sql.models import Tag
 
 target_metadata = Base.metadata
