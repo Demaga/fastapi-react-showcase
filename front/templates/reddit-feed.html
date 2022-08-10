@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h1>Reddit feed</h1>
+    <p>Reddit is fun, but it's sorting is not. I made a custom sorting to see the best posts from my favorite subreddits!</p>
+
+    <div id="reddit_feed"></div>
+
+    <script src="{{ url_for('static', path='/components/reddit_feed.js') }}" type="text/babel"></script>
+{% endblock %}

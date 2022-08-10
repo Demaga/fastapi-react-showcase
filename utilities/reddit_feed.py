@@ -5,7 +5,7 @@ import os
 from sqlalchemy import create_engine, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sql.models import Submission, Comment
+from sql.models import Submission, Comment, SubmissionMediaType
 
 load_dotenv(find_dotenv())
 
@@ -22,7 +22,18 @@ reddit = praw.Reddit(
     user_agent="showcase",
 )
 
-subreddits = ("EverythingScience", "Art", "DataIsBeautiful", "Funny", "TodayILearned")
+subreddits = (
+    "EverythingScience",
+    "Art",
+    "DataIsBeautiful",
+    "Funny",
+    "TodayILearned",
+    "DunderMifflin",
+    "HistoryMemes",
+    "PCMasterRace",
+    "AskScience",
+    "Buildapc",
+)
 
 
 DB_USERNAME = os.getenv("DB_USERNAME")
@@ -44,7 +55,7 @@ with SessionLocal() as session:
     session.query(Submission).delete()
     session.query(Comment).delete()
     for subreddit in subreddits:
-        for submission in reddit.subreddit(subreddit).top(time_filter="day", limit=5):
+        for submission in reddit.subreddit(subreddit).top(time_filter="day", limit=10):
             submission = reddit.submission(submission)
             title = submission.title
             text = submission.selftext
@@ -53,8 +64,26 @@ with SessionLocal() as session:
             comments = submission.comments
             rating = upvotes
 
+            if submission.media != None:
+                if "reddit_media" in submission.media:
+                    url = submission.media["reddit_media"]["fallback_url"]
+                elif "reddit_video" in submission.media:
+                    url = submission.media["reddit_video"]["fallback_url"]
+                else:
+                    continue
+                media_type = SubmissionMediaType.video
+            else:
+                if "i.redd.it" in submission.url:
+                    media_type = SubmissionMediaType.image
+                else:
+                    media_type = SubmissionMediaType.text
+
             submission_to_upload = Submission(
-                title=title, text=text, url=url, upvotes=upvotes
+                title=title,
+                text=text,
+                url=url,
+                upvotes=upvotes,
+                media_type=media_type,
             )
 
             while True:
@@ -117,7 +146,7 @@ with SessionLocal() as session:
 
                 comment_to_upload.children = comment_children
                 comment_to_upload.rating = comment_rating
-                session.add(reply_to_upload)
+                session.add(comment_to_upload)
 
                 rating += comment_rating
 

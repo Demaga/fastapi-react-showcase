@@ -17,3 +17,8 @@ def read_who_said_that(request: Request):
     return templates.TemplateResponse(
         "who-said-that.html", context={"request": request}
     )
+
+
+@subapi.get("/reddit-feed", response_class=HTMLResponse)
+def read_who_said_that(request: Request):
+    return templates.TemplateResponse("reddit-feed.html", context={"request": request})

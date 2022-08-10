@@ -64,7 +64,7 @@ class WhoSaidThatPoll extends React.Component {
     super(props);
     this.state = {
       error: null,
-      isLoaded: false,
+      is_loaded: false,
       quote: null,
       authors: null,
       guess: null,
@@ -75,7 +75,7 @@ class WhoSaidThatPoll extends React.Component {
   update_poll = () => {
     this.setState({
       error: null,
-      isLoaded: false,
+      is_loaded: false,
       quote: null,
       authors: null,
       guess: null,
@@ -89,7 +89,7 @@ class WhoSaidThatPoll extends React.Component {
           let answer = authors.find(a => a.real === true);
           let answer_index = authors.indexOf(answer);
           this.setState({
-            isLoaded: true,
+            is_loaded: true,
             quote: result["text"],
             authors: authors,
             answer: answer,
@@ -98,8 +98,8 @@ class WhoSaidThatPoll extends React.Component {
         },
         (error) => {
           this.setState({
-            isLoaded: true,
-            error
+            is_loaded: true,
+            error: error
           });
         }
       )
@@ -115,11 +115,11 @@ class WhoSaidThatPoll extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, quote, authors, guess, answer, answer_index } = this.state;
+    const { error, is_loaded, quote, authors, guess, answer, answer_index } = this.state;
     if (error) {
       return ({error})
     }
-    else if (!isLoaded) {
+    else if (!is_loaded) {
       return ("Loading...")
     } 
     else {

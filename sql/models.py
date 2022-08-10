@@ -1,6 +1,14 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Table
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Table, Enum
 from sqlalchemy.orm import relationship
 from sql.db import Base
+import enum
+
+
+class SubmissionMediaType(enum.Enum):
+    text = 1
+    image = 2
+    video = 3
+
 
 # who said that
 class Tag(Base):
@@ -63,6 +71,7 @@ class Submission(Base):
     # calculated on each run, and would require accessing many rows
     # so it makes sense to violate normalization
     rating = Column(Integer, default=0)
+    media_type = Column(Enum(SubmissionMediaType), default=1)
 
     comments = relationship("Comment", back_populates="submission")
 
