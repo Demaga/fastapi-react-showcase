@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <h1>Welcome to the world of Bohdan Kholodenko!</h1>
-    <div id="test_react_component"></div>
+    <h1>Welcome!</h1>
+    <p>Hi! It's really nice to see you here!</p>
+    <p>I created this small website to show you what I can do.<br>Follow links on the navbar to the left, and play around those micro apps. See you there! :)</p>
 
+    <hr>
+    <h2>Contacts</h2>
+    <div class="contacts">
+        <p>email: <a href="mailto:bohdan.kholodenko@gmail.com">bohdan.kholodenko@gmail.com</a></p>
+        <p>tg: <a href="t.me/Demaga">t.me/Demaga</a></p>
+    </div>
     <script src="{{ url_for('static', path='/components/test_react_component.js') }}"></script>
 {% endblock %}

@@ -43,7 +43,7 @@ p {
     display: block;
     float: left;
     padding-left: 2%;
-    border-left: 3px solid grey;
+    border-left: 2px solid green;
     min-height: 100vh;
     width: 50%;
 }
@@ -109,7 +109,100 @@ div.option span {
     margin-bottom: 50px;
 }
 
+.submission .title h2 {
+    display: inline-block;
+    width: 90%;
+    vertical-align: middle;
+}
+
+.submission .title span {
+    display: inline-block;
+    width: 10%;
+    vertical-align: middle;
+}
+
 .submission video, img {
     max-height: 70vh;
     max-width: 100%;
+}
+
+.contacts p {
+    display: table-row;
+    text-align: right;
+}
+
+.contacts p * {
+    display: table-cell;
+    text-align: left;
+    padding-left: 5px;
+}
+
+.multiselect {
+  width: 200px;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+
+.reddit-feed-settings select {
+  vertical-align: top;
+  margin-bottom: 15px;
+}
+
+.comments {
+    margin-top: 15px;
+}
+
+.comment {
+    z-index: 2;
+}
+
+.comment .author {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+.comment .body p {
+    margin: 0px;   
+    font-size: 16px;
+    width: 90%;
+    text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.comment .body span {
+    margin: 0px;   
+    font-size: 14px;
+    width: 10%;
+    text-align: right;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.reply {
+    padding-left: 10%;
+    z-index: 3;
 }

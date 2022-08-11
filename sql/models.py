@@ -72,6 +72,7 @@ class Submission(Base):
     # so it makes sense to violate normalization
     rating = Column(Integer, default=0)
     media_type = Column(Enum(SubmissionMediaType), default=1)
+    subreddit = Column(String)
 
     comments = relationship("Comment", back_populates="submission")
 

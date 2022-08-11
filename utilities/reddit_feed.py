@@ -84,6 +84,7 @@ with SessionLocal() as session:
                 url=url,
                 upvotes=upvotes,
                 media_type=media_type,
+                subreddit=subreddit,
             )
 
             while True:
@@ -94,7 +95,10 @@ with SessionLocal() as session:
                     print(e)
                 sleep(1)
 
-            for comment in comments.list():
+            comments = comments.list()
+            comments = comments[:10]
+
+            for comment in comments:
                 author = comment.author
                 if author == None:
                     author = "deleted"
