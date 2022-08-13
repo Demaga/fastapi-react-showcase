@@ -8,17 +8,24 @@ subapi = FastAPI()
 
 
 @subapi.get("/", response_class=HTMLResponse)
-def read_root(request: Request):
+def root(request: Request):
     return templates.TemplateResponse("index.html", context={"request": request})
 
 
 @subapi.get("/who-said-that", response_class=HTMLResponse)
-def read_who_said_that(request: Request):
+def who_said_that(request: Request):
     return templates.TemplateResponse(
         "who-said-that.html", context={"request": request}
     )
 
 
 @subapi.get("/reddit-feed", response_class=HTMLResponse)
-def read_who_said_that(request: Request):
+def who_said_that(request: Request):
     return templates.TemplateResponse("reddit-feed.html", context={"request": request})
+
+
+@subapi.get("/i-hate-crypto", response_class=HTMLResponse)
+def i_hate_crypto(request: Request):
+    return templates.TemplateResponse(
+        "i-hate-crypto.html", context={"request": request}
+    )

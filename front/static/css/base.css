@@ -206,3 +206,21 @@ div.option span {
     padding-left: 10%;
     z-index: 3;
 }
+
+table.listing {
+    text-align: left;
+}
+
+table.listing td {
+    min-width: 120px;
+    padding: 5px 0px;
+    /*padding-right: 20px;*/
+}
+
+table.listing td.win {
+    color: green;
+}
+
+table.listing td.lose {
+    color: red;
+}

@@ -25,5 +25,5 @@ app.mount("/static", StaticFiles(directory="front/static"), name="static")
 
 app.mount("/api/who-said-that", who_said_that.subapi)
 app.mount("/api/reddit-feed", reddit_feed.subapi)
-app.mount("/api/i_hate_crypto", i_hate_crypto.subapi)
+app.mount("/api/i-hate-crypto", i_hate_crypto.subapi)
 app.mount("/", front.subapi)
