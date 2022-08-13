@@ -1,16 +1,8 @@
 from fastapi import FastAPI, Request, Depends
 from sqlalchemy.orm import Session
 from sql import crud, models, schemas
-from sql.db import SessionLocal, engine
+from sql.db import get_db
 import random
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 tags_metadata = [

@@ -1,15 +1,7 @@
 from fastapi import FastAPI, Request, Depends
-from sql.db import SessionLocal
 from sqlalchemy.orm import Session
-from sql import crud
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+from sql import crud, models, schemas
+from sql.db import get_db
 
 
 subapi = FastAPI()
