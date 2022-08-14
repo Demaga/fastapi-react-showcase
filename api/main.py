@@ -17,7 +17,7 @@ async def startup_event():
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    api.redis.edis_global.redis.close()
+    api.redis.redis_global.redis.close()
     await api.redis.redis_global.redis.wait_closed()
 
 
