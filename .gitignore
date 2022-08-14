@@ -158,3 +158,5 @@ cython_debug/
 
 #parse results
 *.json
+
+requirements.txt
