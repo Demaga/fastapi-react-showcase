@@ -51,7 +51,7 @@ class CryptoListing extends React.Component {
       return ("Loading...")
     } 
     else {
-      var last_time_fetched = new Date(data["status"]["timestamp"]).toDateString();
+      var last_time_fetched = new Date(data["status"]["timestamp"]).toLocaleString();
       var coins = Array.from(data["data"]).filter(coin => !coin.tags.includes("stablecoin"));
 
       return (
@@ -71,7 +71,7 @@ class CryptoListing extends React.Component {
                     <tr>
                       <td>{coin.name}</td>
                       <td>{price_formatter.format(coin.quote.USD.price)}</td>
-                      <td className={coin.quote.USD.percent_change_24h < 0 ? "win" : "lose"}>{percent_formatter.format(coin.quote.USD.percent_change_24h/10)}</td>
+                      <td className={coin.quote.USD.percent_change_24h < 0 ? "win" : "lose"}>{percent_formatter.format(coin.quote.USD.percent_change_24h/100)}</td>
                     </tr>
                   )
                 })}

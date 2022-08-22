@@ -9,6 +9,7 @@ subapi = FastAPI()
 
 @subapi.get("/", response_class=HTMLResponse)
 def root(request: Request):
+    print("index.html request received")
     return templates.TemplateResponse("index.html", context={"request": request})
 
 

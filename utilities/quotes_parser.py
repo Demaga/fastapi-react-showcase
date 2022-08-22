@@ -17,6 +17,7 @@ results = []
 # ]
 
 while not empty_results_flag and i <= 100:
+    print(i)
 
     page_url = URL + "page/" + str(i)
     # print(page_url)
@@ -46,5 +47,5 @@ while not empty_results_flag and i <= 100:
     i += 1
 
 
-with open("results.json", "w") as f:
+with open("utilities/results.json", "w") as f:
     json.dump(results, f)
