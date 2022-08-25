@@ -2,8 +2,6 @@
 
 Hi! I'm Bohdan Kholodenko, and I created this small web app to show you my skills. Please note that this is work in progress ;)
 
-Link: https://showcase.chill-party.com/
-
 
 ## Technology
 
