@@ -1,7 +1,7 @@
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from sql import crud, models, schemas
-from sql.db import get_db
+from src.reddit_feed import crud
+from src.db import get_db
 
 
 subapi = FastAPI()

@@ -1,7 +1,9 @@
 from fastapi import FastAPI, Request, Depends, Body
 from sqlalchemy.orm import Session
-from sql import crud, models, schemas
-from sql.db import get_db
+from src.who_said_that import crud
+from src.who_said_that import models
+from src.who_said_that import schemas
+from src.db import get_db
 import random
 
 

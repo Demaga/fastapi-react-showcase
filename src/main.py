@@ -1,12 +1,12 @@
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
-import api.front as front
-import api.who_said_that as who_said_that
-import api.reddit_feed as reddit_feed
-import api.redis
-import api.i_hate_crypto as i_hate_crypto
-from api.settings import settings
 from fastapi.middleware.cors import CORSMiddleware
+import src.front as front
+import src.redis
+from src.settings import settings
+from src.who_said_that import router as who_said_that
+from src.reddit_feed import router as reddit_feed
+from src.i_hate_crypto import router as i_hate_crypto
 
 
 app = FastAPI()
@@ -30,14 +30,14 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup_event():
-    api.redis.redis_global = await api.redis.init_redis()
+    src.redis.redis_global = await src.redis.init_redis()
     print("server started")
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    api.redis.redis_global.close()
-    await api.redis.redis_global.redis.wait_closed()
+    src.redis.redis_global.close()
+    await src.redis.redis_global.redis.wait_closed()
     print("server shutdown")
 
 

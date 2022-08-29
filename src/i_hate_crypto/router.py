@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
-import api.redis
-from api.settings import settings
+import src.redis
+from src.settings import settings
 from datetime import timedelta, datetime, timezone
 import httpx
 from redis.commands.json.path import Path
@@ -33,7 +33,7 @@ async def get_coinmarketcap():
         print(e)
         data = None
 
-    if data == None:
+    if data is None:
         async with httpx.AsyncClient() as client:
             data = await fetch_data(client)
             data_str = json.dumps(data)
